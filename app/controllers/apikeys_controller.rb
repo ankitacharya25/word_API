@@ -13,6 +13,13 @@ class ApikeysController < ApplicationController
   # GET /apikeys/new
   def new
     @apikey = Apikey.new
+    @apikey.api_key=[*('a'..'z'),*('0'..'9')].shuffle[0,20].join;
+    @apikey.count=0
+    @apikey.user_id=current_user.id
+
+    if current_user and @apikey.save
+      redirect_to apikeys_path
+    end
   end
 
   # GET /apikeys/1/edit

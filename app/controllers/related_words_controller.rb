@@ -1,5 +1,5 @@
 class RelatedWordsController < ApplicationController
-  before_action :set_related_word, only: %i[ show edit update destroy ]
+  #before_action :set_related_word, only: %i[ show edit update destroy ]
 
   # GET /related_words or /related_words.json
   def index
@@ -8,6 +8,20 @@ class RelatedWordsController < ApplicationController
 
   # GET /related_words/1 or /related_words/1.json
   def show
+    api = Apikey.find_by(api_key: params[:api_key])
+    api['count'] += 1
+    if api.save
+      word = params[:word_id]
+
+      word_id = Word.where(word_name: word)
+      @related_words = RelatedWord.where(word_id: word_id.ids)
+      render json:{
+        id: @related_words
+      }
+    else
+      flash[:notice] = 'Invalid'
+      redirect_to apikeys_path
+    end
   end
 
   # GET /related_words/new

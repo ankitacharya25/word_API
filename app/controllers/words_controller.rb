@@ -3,11 +3,29 @@ class WordsController < ApplicationController
 
   # GET /words or /words.json
   def index
-    @words = Word.all
+    user = params[:user]
+    if current_user && current_user.id == user.to_i
+      @words = Word.all
+    else
+      flash[:notice] = "Invalid Api access"
+      redirect_to apikeys_path
+    end
   end
 
   # GET /words/1 or /words/1.json
   def show
+    api = Apikey.find_by(api_key: params[:api_key])
+    api['count'] += 1
+    if api.save
+      word.id = rand(127...168)
+      @word = Word.find(word_id)
+      render json: {
+        id: @word
+      }
+    else
+      flash[:notice] = 'Invalid'
+      redirect_to apikeys_path
+    end
   end
 
   # GET /words/new

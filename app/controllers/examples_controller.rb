@@ -1,5 +1,5 @@
 class ExamplesController < ApplicationController
-  before_action :set_example, only: %i[ show edit update destroy ]
+  #before_action :set_example, only: %i[ show edit update destroy ]
 
   # GET /examples or /examples.json
   def index
@@ -8,6 +8,20 @@ class ExamplesController < ApplicationController
 
   # GET /examples/1 or /examples/1.json
   def show
+    api = Apikey.find_by(api_key: params[:api_key])
+    api['count'] += 1
+    if api.save
+      word = params[:word_id]
+
+      word_id = Word.where(word_name: word)
+      @examples = Example.where(word_id: word_id.ids)
+      render json:{
+        id: @examples
+      }
+    else
+      flash[:notice] = 'Invalid'
+      redirect_to apikeys_path
+    end
   end
 
   # GET /examples/new

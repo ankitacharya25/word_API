@@ -1,5 +1,5 @@
 class DefinitionsController < ApplicationController
-  before_action :set_definition, only: %i[ show edit update destroy ]
+  #before_action :set_definition, only: %i[ show edit update destroy ]
 
   # GET /definitions or /definitions.json
   def index
@@ -8,6 +8,20 @@ class DefinitionsController < ApplicationController
 
   # GET /definitions/1 or /definitions/1.json
   def show
+    api = Apikey.find_by(api_key: params[:api_key])
+    api['count'] += 1
+    if api.save
+      word = params[:word_id]
+
+      word_id = Word.where(word_name: word)
+      @definitions = Definition.where(word_id: word_id.ids)
+      render json:{
+        id: @definitions
+      }
+    else
+      flash[:notice] = 'Invalid'
+      redirect_to apikeys_path
+    end
   end
 
   # GET /definitions/new
