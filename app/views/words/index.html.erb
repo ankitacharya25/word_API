@@ -17,6 +17,9 @@
         <td><%= link_to 'Show', word %></td>
         <td><%= link_to 'Edit', edit_word_path(word) %></td>
         <td><%= link_to 'Destroy', word, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'definitions', definitions_path(:id => word.id)%></td>
+        <td><%= link_to 'Examples', examples_path(:id => word.id)%></td>
+        <td><%= link_to 'Related_Words', related_words_path(:id => word.id)%></td>
       </tr>
     <% end %>
   </tbody>
