@@ -1,0 +1,27 @@
+<%= form_with(model: related_word) do |form| %>
+  <% if related_word.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(related_word.errors.count, "error") %> prohibited this related_word from being saved:</h2>
+
+      <ul>
+        <% related_word.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :related_word %>
+    <%= form.text_field :related_word %>
+  </div>
+
+  <div class="field">
+    <%= form.label :word_id %>
+    <%= form.number_field :word_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

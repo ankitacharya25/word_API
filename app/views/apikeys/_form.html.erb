@@ -1,0 +1,32 @@
+<%= form_with(model: apikey) do |form| %>
+  <% if apikey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(apikey.errors.count, "error") %> prohibited this apikey from being saved:</h2>
+
+      <ul>
+        <% apikey.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :api_key %>
+    <%= form.text_field :api_key %>
+  </div>
+
+  <div class="field">
+    <%= form.label :count %>
+    <%= form.number_field :count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

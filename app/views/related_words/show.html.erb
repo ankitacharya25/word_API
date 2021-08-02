@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Related word:</strong>
+  <%= @related_word.related_word %>
+</p>
+
+<p>
+  <strong>Word:</strong>
+  <%= @related_word.word_id %>
+</p>
+
+<%= link_to 'Edit', edit_related_word_path(@related_word) %> |
+<%= link_to 'Back', related_words_path %>

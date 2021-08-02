@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :apikeys
+  resources :related_words
+  resources :examples
+  resources :definitions
+  resources :words
   root 'home#index'
   
   resources :users

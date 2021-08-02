@@ -1,0 +1,27 @@
+<%= form_with(model: example) do |form| %>
+  <% if example.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(example.errors.count, "error") %> prohibited this example from being saved:</h2>
+
+      <ul>
+        <% example.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :example %>
+    <%= form.text_field :example %>
+  </div>
+
+  <div class="field">
+    <%= form.label :word_id %>
+    <%= form.number_field :word_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
